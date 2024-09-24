@@ -42,7 +42,7 @@ const ContactPage = () => {
     >
       <div className="h-full flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48">
         {/* TEXT CONTAINER */}
-        <div className="h-1/2 lg:h-full lg:w-1/2 flex items-center justify-center text-6xl">
+        <div className="h-1/3 lg:h-full lg:w-1/2 flex items-center justify-center text-3xl lg:text-6xl md:text-5xl">
           <div>
             {text.split("").map((letter, index) => (
               <motion.span
@@ -65,12 +65,12 @@ const ContactPage = () => {
         <form
           onSubmit={sendEmail}
           ref={form}
-          className="h-1/2 lg:h-full lg:w-1/2 bg-red-50 rounded-xl text-xl flex flex-col gap-8 justify-center p-24"
+          className="h-2/3 lg:h-full lg:w-1/2 bg-red-50 rounded-xl text-xl flex flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 justify-center p-24"
         >
           <span>Dear Andrew Young,</span>
           <textarea
-            rows={6}
-            className="bg-transparent border-b-2 border-b-black outline-none resize-none"
+            rows={2}
+            className="sm:py-4 bg-transparent border-b-2 outline-none border-b-black block py-4 resize-none"
             name="user_message"
           />
           <span>My mail address is:</span>
