@@ -52,7 +52,7 @@ const Homepage = () => {
             <Link href="/services">Services</Link>
             <Link href="/contact">Contact</Link>
           </div>
-          <div className="flex space-x-4 mr-0">
+          <div className="flex space-x-4 md:mr-8">
             <Link href="#">
               <Image src="/facebook.png" alt="" width={24} height={24} />
             </Link>
