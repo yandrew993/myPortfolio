@@ -44,7 +44,7 @@ const Homepage = () => {
         </div>
       </div>
       {/* FOOTER */}
-      <footer className="bg-gray-800 text-white py-4 mt-8">
+      <footer className="bg-gray-800 text-white py-4 mt-6">
         <div className="container mx-auto flex flex-col items-center justify-between sm:flex-row">
           <div className="mt-4 sm:mt-0 px-2 flex space-x-4 mb-3">
             <Link href="/contact">My Work</Link>
@@ -66,6 +66,9 @@ const Homepage = () => {
             </Link>
           </div>
         </div>
+        <p className="italic mt-2 text-center md:text-right md:mr-8">
+          powered by andrewyoungokeyo@2024
+        </p>
       </footer>
     </motion.div>
   );
