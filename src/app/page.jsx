@@ -57,7 +57,7 @@ const Homepage = () => {
               <Image src="/facebook.png" alt="" width={24} height={24} />
             </Link>
             <Image src="/linkedin.png" alt="" width={24} height={24} />
-            <Link href="#">
+            <Link href="https://www.linkedin.com/in/andrew-young-418177291/">
               <Image src="/instagram.png" alt="" width={24} height={24} />
             </Link>
 
@@ -66,7 +66,7 @@ const Homepage = () => {
             </Link>
           </div>
         </div>
-        <p className="italic mt-2 text-center md:text-right md:mr-8">
+        <p className="italic mt-2 text-center md:text-right md:mr-8 text-xs font-light">
           powered by andrewyoungokeyo@2024
         </p>
       </footer>
