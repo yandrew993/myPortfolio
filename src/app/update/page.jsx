@@ -33,7 +33,7 @@ const Update = () => {
               />
             </Link>
             <Image src="/linkedin.png" alt="LinkedIn" width={24} height={24} />
-            <Link href="https://www.linkedin.com/in/andrew-young-418177291/">
+            <Link href="#">
               <Image
                 src="/instagram.png"
                 alt="Instagram"
