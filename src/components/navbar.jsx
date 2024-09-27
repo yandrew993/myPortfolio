@@ -11,6 +11,7 @@ const links = [
   { url: "/portfolio", title: "Portfolio" },
   { url: "/services", title: "services" },
   { url: "/contact", title: "Contact" },
+  // { url: "/update", title: "Update" },
 ];
 const Navbar = () => {
   const [open, setOpen] = useState(false);
