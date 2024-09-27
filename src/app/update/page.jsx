@@ -26,13 +26,22 @@ const Update = () => {
           <div className="flex space-x-4 md:mr-8">
             <Link href="#">
               <Image
-                src="/facebook.png"
+                src="https://th.bing.com/th/id/OIF.3VcWpkXtOOA0cMlMDEAZkg?w=162&h=182&c=7&r=0&o=5&pid=1.7"
                 alt="Facebook"
+                width={20}
+                height={20}
+                className="bg-grey-800 br-50"
+              />
+            </Link>
+            <Link href="#">
+              <Image
+                src="/linkedin.png"
+                alt="LinkedIn"
                 width={24}
                 height={24}
               />
             </Link>
-            <Image src="/linkedin.png" alt="LinkedIn" width={24} height={24} />
+
             <Link href="#">
               <Image
                 src="/instagram.png"
