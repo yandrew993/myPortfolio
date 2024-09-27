@@ -2,10 +2,16 @@
 import { NextResponse } from "next/server";
 
 export function middleware(req) {
-  const maintenanceMode = false; // Set this to true when you want to enable maintenance mode
+  const maintenanceMode = true; // Set this to true when you want to enable maintenance mode
 
-  if (maintenanceMode) {
-    return NextResponse.redirect("/maintanance");
+  const url = req.nextUrl.clone();
+  if (
+    maintenanceMode &&
+    !url.pathname.startsWith("/maintenance") &&
+    !url.pathname.startsWith("/_next") &&
+    !url.pathname.startsWith("/public")
+  ) {
+    return NextResponse.redirect("/maintenance");
   }
 
   return NextResponse.next();
