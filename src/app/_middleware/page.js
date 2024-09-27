@@ -2,7 +2,7 @@
 import { NextResponse } from "next/server";
 
 export function middleware(req) {
-  const maintenanceMode = true; // Set this to true when you want to enable maintenance mode
+  const maintenanceMode = false; // Set this to true when you want to enable maintenance mode
 
   const url = req.nextUrl.clone();
   if (

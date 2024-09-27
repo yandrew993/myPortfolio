@@ -33,10 +33,11 @@ const Update = () => {
             </Link>
             <Link href="#">
               <Image
-                src="/linkedin.png"
+                src="https://th.bing.com/th?id=OIP.YXhLFa13kBqBgbhqPXWA6wHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2"
                 alt="LinkedIn"
                 width={24}
                 height={24}
+                className=""
               />
             </Link>
 
