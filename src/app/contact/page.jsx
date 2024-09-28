@@ -97,33 +97,6 @@ const ContactPage = () => {
           )}
         </form>
       </div>
-      {/* FOOTER */}
-      <footer className="bg-gray-800 text-white py-4 mt-6">
-        <div className="container mx-auto flex flex-col items-center justify-between sm:flex-row">
-          <div className="mt-4 sm:mt-0 px-2 flex space-x-4 mb-3">
-            <Link href="/contact">My Work</Link>
-            <Link href="/about">About</Link>
-            <Link href="/services">Services</Link>
-            <Link href="/contact">Contact</Link>
-          </div>
-          <div className="flex space-x-4 md:mr-8">
-            <Link href="#">
-              <Image src="/facebook.png" alt="" width={24} height={24} />
-            </Link>
-            <Image src="/linkedin.png" alt="" width={24} height={24} />
-            <Link href="https://www.linkedin.com/in/andrew-young-418177291/">
-              <Image src="/instagram.png" alt="" width={24} height={24} />
-            </Link>
-
-            <Link href="#">
-              <Image src="/pinterest.png" alt="" width={24} height={24} />
-            </Link>
-          </div>
-        </div>
-        <p className="italic mt-2 text-center md:text-right md:mr-8 text-xs font-light">
-          powered by andrewyoungokeyo@2024
-        </p>
-      </footer>
     </motion.div>
   );
 };

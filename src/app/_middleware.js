@@ -7,11 +7,11 @@ export function middleware(req) {
   const url = req.nextUrl.clone();
   if (
     maintenanceMode &&
-    !url.pathname.startsWith("/maintenance") &&
+    !url.pathname.startsWith("/") &&
     !url.pathname.startsWith("/_next") &&
     !url.pathname.startsWith("/public")
   ) {
-    return NextResponse.redirect("/maintenance");
+    return NextResponse.redirect("/");
   }
 
   return NextResponse.next();

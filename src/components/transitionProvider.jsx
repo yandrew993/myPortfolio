@@ -2,6 +2,7 @@
 
 import { AnimatePresence } from "framer-motion";
 import Navbar from "./navbar";
+import Footer from "./footer";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
@@ -36,6 +37,7 @@ const TransitionProvider = ({ children }) => {
         />
         <div className="h-24">
           <Navbar />
+          <Footer />
         </div>
         <div className="h-[calc(100vh-6rem)]">{children}</div>
       </div>

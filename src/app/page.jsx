@@ -12,7 +12,7 @@ const Homepage = () => {
       animate={{ y: "0%" }}
       transition={{ duration: 1 }}
     >
-      <div className="h-full flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 order-1 lg:order-2">
+      <div className="h-full  overflow-y-scroll flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 order-1 lg:order-2  ">
         {/* IMAGE CONTAINER */}
         <div className="h-1/2 lg:h-full lg:w-1/2 relative order-first lg:order-none ">
           <Image src="/My-hero.png" alt="" fill className="object-contain" />
@@ -43,33 +43,6 @@ const Homepage = () => {
           </div>
         </div>
       </div>
-      {/* FOOTER */}
-      <footer className="bg-gray-800 text-white py-4 mt-6">
-        <div className="container mx-auto flex flex-col items-center justify-between sm:flex-row">
-          <div className="mt-4 sm:mt-0 px-2 flex space-x-4 mb-3">
-            <Link href="/contact">My Work</Link>
-            <Link href="/about">About</Link>
-            <Link href="/services">Services</Link>
-            <Link href="/contact">Contact</Link>
-          </div>
-          <div className="flex space-x-4 md:mr-8">
-            <Link href="#">
-              <Image src="/facebook.png" alt="" width={24} height={24} />
-            </Link>
-            <Image src="/linkedin.png" alt="" width={24} height={24} />
-            <Link href="https://www.linkedin.com/in/andrew-young-418177291/">
-              <Image src="/instagram.png" alt="" width={24} height={24} />
-            </Link>
-
-            <Link href="#">
-              <Image src="/pinterest.png" alt="" width={24} height={24} />
-            </Link>
-          </div>
-        </div>
-        <p className="italic mt-2 text-center md:text-right md:mr-8 text-xs font-light">
-          powered by andrewyoungokeyo@2024
-        </p>
-      </footer>
     </motion.div>
   );
 };
