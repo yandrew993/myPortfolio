@@ -2,6 +2,7 @@
 import Brain from "@/components/brain";
 import { motion, useInView, useScroll } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 
 const AboutPage = () => {
@@ -31,27 +32,41 @@ const AboutPage = () => {
           <div className="flex flex-col gap-12 justify-center">
             {/* BIOGRAPHY IMAGE */}
             <Image
-              src="https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=800"
+              src="/me.jpg"
               alt=""
               width={112}
               height={112}
               className="w-28 h-28 rounded-full object-cover"
             />
+
             {/* BIOGRAPHY TITLE */}
             <h1 className="font-bold text-2xl">BIOGRAPHY</h1>
             {/* BIOGRAPHY DESC */}
-            <p className="text-lg">
-              Hello! I’m a passionate software engineer currently on an exciting
-              journey to become a full stack developer, with a strong focus on
-              backend development. As a student at Kirinyaga University, I am
-              constantly expanding my knowledge and skills in various aspects of
-              software engineering. In addition to my studies, I also enjoy
-              developing WordPress websites, combining creativity with technical
-              expertise to create engaging and functional online experiences.
-              Always eager to learn and grow, I am dedicated to mastering the
-              art of full stack development and making a meaningful impact in
-              the tech world.
-            </p>
+            <motion.div
+              initial={{ x: "-300px" }}
+              animate={{ x: 0 }}
+              transition={{
+                delay: 1.0,
+                duration: 1.5,
+                type: "spring",
+                stiffness: 120,
+              }}
+              class="container mx-auto p-4 rounded-lg shadow-md"
+            >
+              <p className="text-lg text-gray-900">
+                Hello! I’m a passionate software engineer currently on an
+                exciting journey to become a full stack developer, with a strong
+                focus on backend development. As a student at Kirinyaga
+                University, I am constantly expanding my knowledge and skills in
+                various aspects of software engineering. In addition to my
+                studies, I also enjoy developing WordPress websites, combining
+                creativity with technical expertise to create engaging and
+                functional online experiences. Always eager to learn and grow, I
+                am dedicated to mastering the art of full stack development and
+                making a meaningful impact in the tech world.
+              </p>
+            </motion.div>
+
             {/* BIOGRAPHY QUOTE */}
             <span className="italic">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -243,8 +258,15 @@ const AboutPage = () => {
                   </div>
                   {/* JOB DESC */}
                   <div className="p-3 text-sm italic">
-                    I led a talented team in developing an E-commerce WordPress
-                    website for grocery store orders and deliveries.{" "}
+                    Developed an E-commerce website.
+                    <br />
+                    <a
+                      class="text-blue-500 hover:underline"
+                      href="https://mjinimarketstore.com/"
+                    >
+                      Oasis Market
+                    </a>
+                    .{" "}
                   </div>
                   {/* JOB DATE */}
                   <div className="p-3 text-red-400 text-sm font-semibold">
@@ -290,17 +312,12 @@ const AboutPage = () => {
                       <li>
                         Maintaining Software Systems and performing software
                         upgrades.
-                      </li>
-                      <li>
-                        {" "}
-                        Managing hospital's databases, which include patient
-                        records and staff information.
                       </li>{" "}
                     </ul>
                   </div>
                   {/* JOB DATE */}
                   <div className="p-3 text-red-400 text-sm font-semibold">
-                    April - August(2024){" "}
+                    April - Aug(2024){" "}
                   </div>
                   {/* JOB COMPANY */}
                   <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
@@ -318,8 +335,7 @@ const AboutPage = () => {
                   </div>
                   {/* JOB DESC */}
                   <div className="p-3 text-sm italic">
-                    I work as a freelancer, taking on various online jobs to
-                    leverage my skills and expertise.{" "}
+                    I work as a freelancer, taking on various online jobs.{" "}
                   </div>
                   {/* JOB DATE */}
                   <div className="p-3 text-red-400 text-sm font-semibold">
@@ -341,9 +357,9 @@ const AboutPage = () => {
           </div>
         </div>
         {/* SVG CONTAINER */}
-        {/* <div className="hidden lg:block w-1/3 sticky top-0 z-30 xl:w-1/2">
+        <div className="hidden lg:block w-1/3 sticky top-0 z-30 xl:w-1/2">
           <Brain scrollYProgress={scrollYProgress} />
-        </div> */}
+        </div>
       </div>
     </motion.div>
   );
