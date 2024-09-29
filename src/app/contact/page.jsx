@@ -7,7 +7,7 @@ export default function ContactPage() {
   const text = "Say Hello";
   return (
     <motion.div
-      className="h-full"
+      className="h-full overflow-y-scroll"
       initial={{ y: "-200vh" }}
       animate={{ y: "0%" }}
       transition={{ duration: 1 }}
