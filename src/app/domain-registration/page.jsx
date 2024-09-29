@@ -4,6 +4,7 @@ import emailjs from "emailjs-com";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import ContactForm from "@/components/ContactForm";
 
 const DomainRegistration = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -79,48 +80,7 @@ const DomainRegistration = () => {
             </div>
 
             <div className="bg-gray-100 p-8 rounded-lg shadow-md">
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 ">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    {...register("name", { required: true })}
-                    className="mt-1 block w-full rounded-md shadow-sm border-transparent outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    {...register("email", { required: true })}
-                    className="mt-1 block w-full rounded-md shadow-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Message
-                  </label>
-                  <textarea
-                    {...register("message", { required: true })}
-                    className="mt-1 block w-full rounded-md shadow-sm"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="bg-blue-500 text-white px-4 py-2 rounded w-full"
-                >
-                  Submit
-                </button>
-              </form>
-              {successMessage && (
-                <p className="mt-4 text-green-500 text-center">
-                  {successMessage}
-                </p>
-              )}
+              <ContactForm />
             </div>
           </div>
         </div>
