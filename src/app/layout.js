@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
               <Link href="/contact">Contact</Link>
             </div>
             <div className="flex space-x-4 md:mr-8">
-              <Link href="#">
+              <Link href="https://www.facebook.com/profile.php?id=100028196826391">
                 <Image
                   src="/facebook.png"
                   alt="Facebook"
@@ -38,13 +38,15 @@ export default function RootLayout({ children }) {
                   height={24}
                 />
               </Link>
-              <Image
-                src="/linkedin.png"
-                alt="LinkedIn"
-                width={24}
-                height={24}
-              />
               <Link href="https://www.linkedin.com/in/andrew-young-418177291/">
+                <Image
+                  src="/linkedin.png"
+                  alt="LinkedIn"
+                  width={24}
+                  height={24}
+                />
+              </Link>
+              <Link href="https://www.instagram.com/andrewyoung1509/">
                 <Image
                   src="/instagram.png"
                   alt="Instagram"
@@ -52,9 +54,9 @@ export default function RootLayout({ children }) {
                   height={24}
                 />
               </Link>
-              <Link href="#">
+              <Link href="">
                 <Image
-                  src="/pinterest.png"
+                  src="/X-image.png"
                   alt="Pinterest"
                   width={24}
                   height={24}

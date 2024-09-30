@@ -6,8 +6,8 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/((?!update).*)",
-        destination: "/update",
+        source: "/((?!).*)",
+        destination: "/",
         permanent: false,
       },
     ];
