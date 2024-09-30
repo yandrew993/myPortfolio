@@ -27,7 +27,7 @@ const AboutPage = () => {
       {/* CONTAINER */}
       <div className="h-full overflow-scroll lg:flex" ref={containerRef}>
         {/* TEXT CONTAINER */}
-        <div className="p-4 sm:p-8 md:p-10 lg:p-16 xl:p-24 flex flex-col gap-24 md:gap-30 lg:gap-48 xl:gap-64 lg:w-1/3 lg:pr-0 xl:w-1/3">
+        <div className="p-4 sm:p-8 md:p-1 lg:p-20 xl:p-30 flex flex-col gap-24 md:gap-30 lg:gap-48 xl:gap-64 lg:w-2/3 lg:pr-0 xl:w-1/2">
           {/* BIOGRAPHY CONTAINER */}
           <div className="flex flex-col gap-12 justify-center">
             {/* BIOGRAPHY IMAGE */}
@@ -358,7 +358,8 @@ const AboutPage = () => {
         </div>
         {/* SVG CONTAINER */}
         <div className="hidden xl:block w-1/3 sticky top-0 z-30 xl:w-1/2">
-          <Brain scrollYProgress={scrollYProgress} />
+          {/* <Brain scrollYProgress={scrollYProgress} /> */}
+          <Image src="/My-hero.png" alt="" fill className="object-contain" />
         </div>
       </div>
     </motion.div>
