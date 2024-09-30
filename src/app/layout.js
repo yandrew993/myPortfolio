@@ -54,13 +54,8 @@ export default function RootLayout({ children }) {
                   height={24}
                 />
               </Link>
-              <Link href="">
-                <Image
-                  src="/X-image.png"
-                  alt="Pinterest"
-                  width={24}
-                  height={24}
-                />
+              <Link href="https://x.com/yandrew993">
+                <Image src="/X-image.png" alt="X" width={24} height={24} />
               </Link>
             </div>
           </div>

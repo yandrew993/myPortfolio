@@ -97,17 +97,19 @@ const Navbar = () => {
         <Link href="#">
           <Image src="/dribbble.png" alt="" width={24} height={24} />
         </Link>
-        <Link href="#">
+        <Link href="https://www.facebook.com/profile.php?id=100028196826391">
           <Image src="/facebook.png" alt="" width={24} height={24} />
         </Link>
+        <Link href="https://www.linkedin.com/in/andrew-young-418177291/">
+          <Image src="/linkedin.png" alt="" width={24} height={24} />
+        </Link>
 
-        <Image src="/linkedin.png" alt="" width={24} height={24} />
-        <Link href="#">
+        <Link href="https://www.instagram.com/andrewyoung1509/">
           <Image src="/instagram.png" alt="" width={24} height={24} />
         </Link>
 
-        <Link href="#">
-          <Image src="/pinterest.png" alt="" width={24} height={24} />
+        <Link href="https://x.com/yandrew993">
+          <Image src="/X-image.png" alt="" width={24} height={24} />
         </Link>
       </div>
       {/*RESPONSIVE MENU*/}

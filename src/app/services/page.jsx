@@ -15,22 +15,19 @@ const services = [
   {
     title: "Domain Registration",
     description: "Registration of domain name with trusted hosting sites.",
-    image:
-      "https://th.bing.com/th/id/OIP.BjzFdvESBeCYBP2NzUZCwQHaEK?rs=1&pid=ImgDetMain",
+    image: "/Registration.png",
     link: "/domain-registration",
   },
   {
     title: "Web Development",
     description: "Professional installation of Windows operating systems.",
-    image:
-      "https://th.bing.com/th/id/OIP.BjzFdvESBeCYBP2NzUZCwQHaEK?rs=1&pid=ImgDetMain",
+    image: "/Web dev.png",
     link: "/web-development",
   },
   {
     title: "Graphic Design",
     description: "Professional installation of Windows operating systems.",
-    image:
-      "https://th.bing.com/th/id/OIP.BjzFdvESBeCYBP2NzUZCwQHaEK?rs=1&pid=ImgDetMain",
+    image: "/Graphic.jpg",
     link: "/graphic-design",
   },
   {
