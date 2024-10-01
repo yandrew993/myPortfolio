@@ -4,10 +4,10 @@ import ContactForm from "../../components/ContactForm";
 import { motion } from "framer-motion";
 
 export default function ContactPage() {
-  const text = "Say Hello";
+  const text = "Say hello to Andrew ";
   return (
     <motion.div
-      className="h-full overflow-y-scroll"
+      className="h-full overflow-y-scroll bg-gray-100"
       initial={{ y: "-200vh" }}
       animate={{ y: "0%" }}
       transition={{ duration: 1 }}
