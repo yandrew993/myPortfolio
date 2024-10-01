@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
         <footer className="bg-gray-800 text-white py-4 mt-6">
           <div className="container mx-auto flex flex-col items-center justify-between sm:flex-row">
             <div className="mt-4 sm:mt-0 px-2 flex space-x-4 mb-3">
-              <Link href="/contact">My Work</Link>
+              <Link href="/">Home</Link>
               <Link href="/about">About</Link>
               <Link href="/services">Services</Link>
               <Link href="/contact">Contact</Link>

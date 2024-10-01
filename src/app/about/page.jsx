@@ -26,7 +26,7 @@ const AboutPage = () => {
     >
       {/* CONTAINER */}
       <div
-        className="h-full overflow-scroll lg:flex bg-gray-100 sm:mb-4"
+        className="h-full  overflow-scroll lg:flex bg-gray-100 "
         ref={containerRef}
       >
         {/* TEXT CONTAINER */}
@@ -376,7 +376,7 @@ const AboutPage = () => {
                     </defs>
                     <text fill="#000">
                       <textPath xlinkHref="#circlePath" className="text-xl">
-                        Front-end Developer and UI Designer
+                        For wordpress Website Development
                       </textPath>
                     </text>
                   </motion.svg>

@@ -19,13 +19,14 @@ const services = [
   },
   {
     title: "Web Development",
-    description: "Professional installation of Windows operating systems.",
+    description:
+      "Building professional website to help your business stand out.",
     image: "/Web dev.png",
     link: "/web-development",
   },
   {
     title: "Graphic Design",
-    description: "Professional installation of Windows operating systems.",
+    description: "Designing professional and unique logos to your business.",
     image: "/Graphic.jpg",
     link: "/graphic-design",
   },
@@ -74,7 +75,7 @@ const Services = () => {
                 <p className="mb-4">{service.description}</p>
                 <Link href={service.link}>
                   <button className="bg-blue-500 text-white px-4 py-2 rounded">
-                    Book Now
+                    Help?
                   </button>
                 </Link>
               </div>

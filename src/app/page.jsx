@@ -42,9 +42,9 @@ const Homepage = () => {
                 My Services
               </button>
             </Link>
-            <Link href="/contact">
+            <Link href="/about">
               <button className="p-4 rounded-lg ring-1 ring-black">
-                Contact Me
+                About Me
               </button>
             </Link>
           </div>
