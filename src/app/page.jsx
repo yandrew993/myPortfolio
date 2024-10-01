@@ -25,7 +25,7 @@ const Homepage = () => {
         {/* TEXT CONTAINER */}
         <div className="h-1/2 lg:h-full lg:w-1/2 flex flex-col gap-8 items-center justify-center order-2 lg:order-1">
           {/* TITLE */}
-          <h1 className="lg:text-4xl md:text-6xl sm:text-3xl font-bold text-center mt-12">
+          <h1 className="lg:text-4xl md:text-6xl sm:text-3xl font-bold text-center mt-24">
             Crafting Digital Experiences, Designing Tomorrow.
           </h1>
           {/* DESC */}
