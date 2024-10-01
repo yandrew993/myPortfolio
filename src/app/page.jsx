@@ -12,7 +12,7 @@ const Homepage = () => {
       animate={{ y: "0%" }}
       transition={{ duration: 1 }}
     >
-      <div className="h-full  overflow-y-scroll flex flex-col lg:flex-row px-2 sm:px-4 md:px-6 lg:px-8 xl:px-16  bg-gray-100 pb-12">
+      <div className="h-full  overflow-y-scroll flex flex-col lg:flex-row px-2 sm:px-4 md:px-6 lg:px-8 xl:px-16  bg-gray-100 pb-20">
         {/* IMAGE CONTAINER */}
         <div className="h-1/2 lg:h-full lg:w-1/2 relative order-first lg:order-none mr-4">
           <Image
