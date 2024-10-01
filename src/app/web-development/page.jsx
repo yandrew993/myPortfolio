@@ -9,16 +9,14 @@ const DomainRegistration = () => {
         <h1 className="text-4xl font-bold mb-8 text-center">Web Development</h1>
         <div className="flex flex-col lg:flex-row items-center lg:items-start lg:space-x-8 mb-4">
           <Image
-            src="https://th.bing.com/th/id/OIP.BjzFdvESBeCYBP2NzUZCwQHaEK?rs=1&pid=ImgDetMain"
+            src="/Web dev.png"
             alt="Windows Installation"
             width={600}
             height={400}
-            className="mb-4 lg:mb-0"
+            className="mb-4 lg:mb-0 rounded"
           />
           <div className="lg:w-1/2">
             <p className="text-center lg:text-left mb-4">
-              Professional registration of domain name with trusted hosting
-              sites. <br />
               We create a professional and fully functional WordPress website
               tailored to your business needs. Our team of experts will handle
               everything from setup to customization, ensuring your site is

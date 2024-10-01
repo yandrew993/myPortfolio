@@ -9,11 +9,11 @@ const WindowsInstallation = () => {
         <h1 className="text-4xl font-bold mb-8 text-center">OS Installation</h1>
         <div className="flex flex-col lg:flex-row items-center lg:items-start lg:space-x-8 mb-4">
           <Image
-            src="https://th.bing.com/th/id/OIP.BjzFdvESBeCYBP2NzUZCwQHaEK?rs=1&pid=ImgDetMain"
+            src="/Windows.png"
             alt="Windows Installation"
             width={600}
             height={400}
-            className="mb-4 lg:mb-0"
+            className="mb-4 lg:mb-0 rounded"
           />
           <div className="lg:w-1/2">
             <p className="text-center lg:text-left mb-4">

@@ -8,8 +8,7 @@ const services = [
   {
     title: "OS Installation",
     description: "Professional installation of Windows operating systems.",
-    image:
-      "https://th.bing.com/th/id/OIP.BjzFdvESBeCYBP2NzUZCwQHaEK?rs=1&pid=ImgDetMain",
+    image: "/Windows.png",
     link: "/windows-installation",
   },
   {
@@ -33,8 +32,7 @@ const services = [
   {
     title: "Freelancing",
     description: "Professional installation of Windows operating systems.",
-    image:
-      "https://th.bing.com/th/id/OIP.BjzFdvESBeCYBP2NzUZCwQHaEK?rs=1&pid=ImgDetMain",
+    image: "/Freelancer.jpg",
     link: "/windows-installation",
   },
   {
