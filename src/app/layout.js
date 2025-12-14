@@ -16,12 +16,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="flex flex-col min-h-screen">
-        <div className="flex-grow ">
+      <body className="flex flex-col min-h-screen bg-gray-100">
+        <div className="flex-grow overflow-auto">
           <TransitionProvider>{children}</TransitionProvider>
         </div>
         {/* <Footer /> Include the Footer component */}
-        <footer className="bg-gray-800 text-white py-4 mt-6">
+        <footer className="bg-gray-800 text-white py-4 w-full flex-shrink-0">
           <div className="container mx-auto flex flex-col items-center justify-between sm:flex-row">
             <div className="mt-4 sm:mt-0 px-2 flex space-x-4 mb-3">
               <Link href="/">Home</Link>

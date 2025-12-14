@@ -8,23 +8,41 @@ import TextAnimation from "@/components/TextAnimation";
 const Homepage = () => {
   return (
     <motion.div
-      className="h-full"
+      className="flex flex-col min-h-screen"
       initial={{ y: "-200vh" }}
       animate={{ y: "0%" }}
       transition={{ duration: 1 }}
     >
-      <div className="h-full  overflow-y-scroll flex flex-col lg:flex-row px-2 sm:px-4 md:px-6 lg:px-8 xl:px-16  bg-gray-100 pb-20">
+      {/* WELCOME HEADER */}
+      <motion.div
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        className="w-full bg-gradient-to-r from-blue-50 to-blue-100 py-8 px-4 text-center"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+          Welcome to Youngky's Digital Studio
+        </h2>
+        <p className="text-lg md:text-xl text-gray-700 font-semibold">
+          Where we turn every <span className="text-blue-600 italic">problem into a solution</span>
+        </p>
+      </motion.div>
+
+      <div className="flex-grow overflow-y-auto flex flex-col lg:flex-row px-2 sm:px-4 md:px-6 lg:px-8 xl:px-16  bg-gray-100 pb-20">
         {/* IMAGE CONTAINER */}
-        <div className="h-1/2 lg:h-full lg:w-1/2 relative order-first lg:order-none mr-4">
-          <Image
-            src="/Y5.jpg"
-            alt=""
-            fill
-            className="object-contain rounded-lg bg-black mt-4"
-          />
+        <div className="w-full lg:w-1/2 h-auto relative py-8 lg:py-0 lg:order-none mr-0 lg:mr-4 flex items-center justify-center">
+          <div className="relative w-full h-64 sm:h-80 md:h-96 lg:w-full lg:h-[500px]">
+            <Image
+              src="/Y5.jpg"
+              alt="Portfolio"
+              fill
+              className="object-contain rounded-lg bg-black"
+              priority
+            />
+          </div>
         </div>
         {/* TEXT CONTAINER */}
-        <div className="h-1/2 lg:h-full lg:w-1/2 flex flex-col gap-8 items-center justify-center order-2 lg:order-1">
+        <div className="w-full lg:w-1/2 flex flex-col gap-4 sm:gap-6 md:gap-8 items-center justify-center lg:order-1 py-8 lg:py-0">
           {/* TITLE */}
           
           {/* DESC */}
@@ -33,8 +51,8 @@ const Homepage = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-8 p-6 bg-white rounded-lg shadow-md border-l-4 border-blue-500 max-w-2xl"
+            transition={{ duration: 1.0, delay: 0.2 }}
+            className="mt-4 sm:mt-2s md:mt-8 p-4 sm:p-5 md:p-6 bg-white rounded-lg shadow-md border-l-4 border-blue-500 w-full max-w-2xl mx-2 sm:mx-4"
           >
             <h3 className="text-2xl font-bold text-gray-800 mb-3">My Message To You</h3>
             <div style={{
