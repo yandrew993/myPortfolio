@@ -59,10 +59,9 @@ const AboutPage = () => {
               <p className="text-lg text-gray-900">
                 Hello! I’m a passionate software engineer currently on an
                 exciting journey to become a full stack developer, with a strong
-                focus on backend development. As a student at Kirinyaga
-                University, I am constantly expanding my knowledge and skills in
+                focus on backend development. I am constantly expanding my knowledge and skills in
                 various aspects of software engineering. In addition to my
-                studies, I also enjoy developing WordPress websites, combining
+                studies, I also enjoy developing web applications, combining
                 creativity with technical expertise to create engaging and
                 functional online experiences. Always eager to learn and grow, I
                 am dedicated to mastering the art of full stack development and
@@ -72,7 +71,7 @@ const AboutPage = () => {
 
             {/* BIOGRAPHY QUOTE */}
             <span className="italic">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Fullstack architect. I speak JavaScript, Python, and caffeine 🚀.
             </span>
             {/* BIOGRAPHY SIGN SVG*/}
             <div className="self-end">
@@ -257,17 +256,17 @@ const AboutPage = () => {
                 <div className="w-1/3 ">
                   {/* JOB TITLE */}
                   <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
-                    Wordpress Developer
+                    System Admin
                   </div>
                   {/* JOB DESC */}
                   <div className="p-3 text-sm italic">
-                    Developed an E-commerce website.
+                    Developed Sureway school system.
                     <br />
                     <a
                       class="text-blue-500 hover:underline"
-                      href="https://mjinimarketstore.com/"
+                      href="https://surewaygroupofschools.org/"
                     >
-                      Oasis Market
+                      Sureway Academy
                     </a>
                     .{" "}
                   </div>
@@ -277,7 +276,7 @@ const AboutPage = () => {
                   </div>
                   {/* JOB COMPANY */}
                   <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
-                    Xenialxnopsis
+                    Sureway School
                   </div>
                 </div>
                 {/* CENTER */}
@@ -356,7 +355,39 @@ const AboutPage = () => {
                 {/* RIGHT */}
                 <div className="w-1/3 "></div>
               </div>
-              <div className="w-screen flex flex-col gap-16 items-center justify-center text-center md:ml-[-100px] lg:ml-[-300px]">
+              {/* EXPERIENCE LIST ITEM */}
+              <div className="flex justify-between h-64">
+                {/* LEFT */}
+                <div className="w-1/3 "></div>
+                {/* CENTER */}
+                <div className="w-1/6 flex justify-center">
+                  {/* LINE */}
+                  <div className="w-1 h-full bg-gray-600 rounded relative">
+                    {/* LINE CIRCLE */}
+                    <div className="absolute w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
+                  </div>
+                </div>
+                {/* RIGHT */}
+                <div className="w-1/3 ">
+                  {/* JOB TITLE */}
+                  <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
+                    UI/Backend Developer
+                  </div>
+                  {/* JOB DESC */}
+                  <div className="p-3 text-sm italic">
+                    Improved the UI webpage design and integrated backend systems for better performance.
+                  </div>
+                  {/* JOB DATE */}
+                  <div className="p-3 text-red-400 text-sm font-semibold">
+                    2024 - Present{" "}
+                  </div>
+                  {/* JOB COMPANY */}
+                  <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
+                    Greatint AI
+                  </div>
+                </div>
+              </div>
+              <div className="w-screen flex flex-col gap-16 items-center justify-center text-center md:ml-[-100px] lg:ml-[-300px] mt-20">
                 <div className="relative">
                   <motion.svg
                     animate={{ rotate: 360 }}
@@ -374,7 +405,7 @@ const AboutPage = () => {
                         d="M 150, 150 m -60, 0 a 60,60 0 0,1 120,0 a 60,60 0 0,1 -120,0 "
                       />
                     </defs>
-                    <text fill="#000">
+                    <text fill="#000" dy="20">
                       <textPath xlinkHref="#circlePath" className="text-xl">
                         For wordpress Website Development
                       </textPath>
