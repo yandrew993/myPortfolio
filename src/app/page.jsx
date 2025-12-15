@@ -18,10 +18,10 @@ const Homepage = () => {
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="w-full bg-gradient-to-r from-blue-50 to-blue-100 py-8 px-4 text-center"
+        className="w-full bg-white py-8 px-4 text-center"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
-          Welcome to Youngky's Digital Studio
+        <h2 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2">
+          Hello👋 Welcome Home
         </h2>
         <p className="text-lg md:text-xl text-gray-700 font-semibold">
           Where we turn every <span className="text-blue-600 italic">problem into a solution</span>
@@ -101,6 +101,26 @@ const Homepage = () => {
                 About Me
               </button>
             </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* VIDEO SECTION */}
+      <div className="w-full px-2 sm:px-4 md:px-6 lg:px-8 xl:px-16 bg-gray-100 py-8 pb-20">
+        <div className="max-w-6xl mx-auto">
+          <div className="relative w-full h-64 sm:h-80 md:h-96 lg:h-[500px] rounded-lg overflow-hidden bg-gray-200 shadow-2xl">
+            <video
+              width="100%"
+              height="100%"
+              autoPlay
+              muted
+              loop
+              className="w-full h-full object-contain rounded-lg"
+              poster="/thumbnail.jpg"
+            >
+              <source src="/video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
       </div>
