@@ -60,7 +60,7 @@ export default function RootLayout({ children }) {
             </div>
           </div>
           <p className="italic mt-2 text-center md:text-right md:mr-8 text-xs font-light">
-            powered by andrewyoungokeyo@2024
+            powered by andrewyoungokeyo@2025
           </p>
         </footer>
       </body>
