@@ -7,9 +7,7 @@ import { useState, useEffect } from "react";
 import TextAnimation from "@/components/TextAnimation";
 
 // Fun Fact Card Component with Interactions
-const FunFactCard = ({ fact, index }) => {
-  const [likes, setLikes] = useState(0);
-  const [hearts, setHearts] = useState(0);
+const FunFactCard = ({ fact, index, reactions = {}, onReactionChange }) => {
   const [comments, setComments] = useState([]);
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [showComments, setShowComments] = useState(false);
@@ -17,8 +15,6 @@ const FunFactCard = ({ fact, index }) => {
   const [userName, setUserName] = useState("");
   const [expandedComments, setExpandedComments] = useState({});
   const [loading, setLoading] = useState(false);
-  const [userLiked, setUserLiked] = useState(false);
-  const [userHeartted, setUserHeartted] = useState(false);
 
   const API_URL = "https://nyabera-backend.onrender.com/api/testimonials/andrew";
 
@@ -34,27 +30,6 @@ const FunFactCard = ({ fact, index }) => {
           const factComments = data.filter((item) => item.factId === fact.id && (item.type === "comment" ? item.approved !== false : true));
           console.log("📥 Fetched comments for fact", fact.id, ":", factComments);
           setComments(factComments);
-          
-          // Get the fact data to get actual like and heart counts from the database
-          // The backend stores reactions as increment/decrement operations on the fact object
-          const factData = data.find((item) => item.id === fact.id);
-          
-          if (factData) {
-            const likeCount = factData.likes || 0;
-            const heartCount = factData.hearts || 0;
-            
-            setLikes(likeCount);
-            setHearts(heartCount);
-            
-            // For demo purposes, if there are any likes/hearts, assume user has reacted
-            // In production, use user ID to check if current user has reacted
-            setUserLiked(likeCount > 0);
-            setUserHeartted(heartCount > 0);
-            
-            console.log("📊 Fact Data:", { likes: likeCount, hearts: heartCount });
-          } else {
-            console.log("ℹ️ Fact data not found, keeping default counts");
-          }
         }
       } catch (error) {
         console.error("Error fetching comments:", error);
@@ -110,96 +85,55 @@ const FunFactCard = ({ fact, index }) => {
     }
   };
 
-  const handleLike = async () => {
-    // Toggle like state
-    const newLikeCount = userLiked ? likes - 1 : likes + 1;
-    const action = userLiked ? "decrement" : "increment";
-    
-    // Optimistically update UI
-    setLikes(newLikeCount);
-    setUserLiked(!userLiked);
+  const handleReaction = async (reactionType) => {
+    if (!fact || !fact.id) return;
 
-    const likeData = {
-      type: "like",
-      action: action,
-    };
+    // Check if user has already reacted
+    const isActive = reactions[fact.id]?.[reactionType];
+    const action = isActive ? "decrement" : "increment";
 
-    console.log("👍 Sending like data:", likeData);
+    console.log(`${reactionType === "like" ? "👍" : "❤️"} Sending ${reactionType} with action:`, action);
     console.log("🌐 PATCH URL:", `${API_URL}/${fact.id}/reaction`);
 
     try {
       const response = await fetch(`${API_URL}/${fact.id}/reaction`, {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(likeData),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: reactionType, action }),
       });
 
-      console.log("📦 Like response status:", response.status);
+      console.log("📦 Reaction response status:", response.status);
       const responseText = await response.text();
-      console.log("📦 Like response body:", responseText);
+      console.log("📦 Reaction response body:", responseText);
 
       if (!response.ok) {
-        console.error("❌ Failed to save like to database");
-        // Revert on error
-        setLikes(userLiked ? likes + 1 : likes - 1);
-        setUserLiked(userLiked);
-      } else {
-        console.log("✅ Like saved successfully");
+        throw new Error("Failed to update reaction");
+      }
+
+      const updated = JSON.parse(responseText);
+      console.log("✅ Reaction saved successfully:", updated);
+
+      // Update the fact's reaction counts and user's reaction state via parent callback
+      if (onReactionChange) {
+        onReactionChange(fact.id, {
+          likes: updated.likes,
+          hearts: updated.hearts,
+          userReactions: {
+            [reactionType]: !isActive, // Toggle the user's reaction state
+          },
+        });
       }
     } catch (error) {
-      console.error("❌ Error saving like:", error);
-      // Revert on error
-      setLikes(userLiked ? likes + 1 : likes - 1);
-      setUserLiked(userLiked);
+      console.error(`❌ Error saving ${reactionType}:`, error);
     }
   };
 
+  const handleLike = async () => {
+    await handleReaction("like");
+  };
+
   const handleHeart = async () => {
-    // Toggle heart state
-    const newHeartCount = userHeartted ? hearts - 1 : hearts + 1;
-    const action = userHeartted ? "decrement" : "increment";
-    
-    // Optimistically update UI
-    setHearts(newHeartCount);
-    setUserHeartted(!userHeartted);
-
-    const heartData = {
-      type: "heart",
-      action: action,
-    };
-
-    console.log("❤️ Sending heart data:", heartData);
-    console.log("🌐 PATCH URL:", `${API_URL}/${fact.id}/reaction`);
-
-    try {
-      const response = await fetch(`${API_URL}/${fact.id}/reaction`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(heartData),
-      });
-
-      console.log("📦 Heart response status:", response.status);
-      const responseText = await response.text();
-      console.log("📦 Heart response body:", responseText);
-
-      if (!response.ok) {
-        console.error("❌ Failed to save heart to database");
-        // Revert on error
-        setHearts(userHeartted ? hearts + 1 : hearts - 1);
-        setUserHeartted(userHeartted);
-      } else {
-        console.log("✅ Heart saved successfully");
-      }
-    } catch (error) {
-      console.error("❌ Error saving heart:", error);
-      // Revert on error
-      setHearts(userHeartted ? hearts + 1 : hearts - 1);
-      setUserHeartted(userHeartted);
-    }
+    await handleReaction("heart");
   };
 
   const toggleCommentExpand = (commentId) => {
@@ -267,18 +201,18 @@ const FunFactCard = ({ fact, index }) => {
       </div>
 
       {/* Reaction Stats */}
-      {(likes > 0 || hearts > 0) && (
+      {(fact.likes > 0 || fact.hearts > 0) && (
         <div className="px-6 py-2 border-t border-gray-200 text-xs text-gray-600 flex items-center gap-3">
           <div className="flex items-center gap-1">
-            {likes > 0 && <span className="text-lg">👍</span>}
-            {hearts > 0 && <span className="text-lg">❤️</span>}
+            {fact.likes > 0 && <span className="text-lg">👍</span>}
+            {fact.hearts > 0 && <span className="text-lg">❤️</span>}
           </div>
           <span>
-            {likes > 0 && hearts > 0
-              ? `${likes + hearts} reactions`
-              : likes > 0
-              ? `${likes} like${likes !== 1 ? "s" : ""}`
-              : `${hearts} heart${hearts !== 1 ? "s" : ""}`}
+            {fact.likes > 0 && fact.hearts > 0
+              ? `${fact.likes + fact.hearts} reactions`
+              : fact.likes > 0
+              ? `${fact.likes} like${fact.likes !== 1 ? "s" : ""}`
+              : `${fact.hearts} heart${fact.hearts !== 1 ? "s" : ""}`}
           </span>
         </div>
       )}
@@ -289,7 +223,7 @@ const FunFactCard = ({ fact, index }) => {
         <button
           onClick={handleLike}
           className={`flex-1 py-2 hover:bg-gray-100 rounded flex justify-center items-center gap-2 transition-colors ${
-            userLiked ? "text-blue-500" : ""
+            reactions[fact.id]?.like ? "text-blue-500" : ""
           }`}
         >
           <svg
@@ -304,43 +238,43 @@ const FunFactCard = ({ fact, index }) => {
           >
             <path 
               d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-5z"
-              fill={userLiked ? "#1877f2" : "#fff"}
-              stroke={userLiked ? "#fff" : "#757575"}
+              fill={reactions[fact.id]?.like ? "#1877f2" : "#fff"}
+              stroke={reactions[fact.id]?.like ? "#fff" : "#757575"}
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
             <path 
               d="M7 22H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h3"
-              fill={userLiked ? "#1877f2" : "#fff"}
-              stroke={userLiked ? "#fff" : "#757575"}
+              fill={reactions[fact.id]?.like ? "#1877f2" : "#fff"}
+              stroke={reactions[fact.id]?.like ? "#fff" : "#757575"}
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
           </svg>
-          Like {likes > 0 && `(${likes})`}
+          Like {fact.likes > 0 && `(${fact.likes})`}
         </button>
 
         {/* Heart Button */}
         <button
           onClick={handleHeart}
           className={`flex-1 py-2 hover:bg-gray-100 rounded flex justify-center items-center gap-2 transition-colors ${
-            userHeartted ? "text-red-500" : ""
+            reactions[fact.id]?.heart ? "text-red-500" : ""
           }`}
         >
           <svg
             width="20"
             height="20"
             viewBox="0 0 24 24"
-            fill={userHeartted ? "#e0245e" : "white"}
-            stroke={userHeartted ? "#e0245e" : "#757575"}
+            fill={reactions[fact.id]?.heart ? "#e0245e" : "white"}
+            stroke={reactions[fact.id]?.heart ? "#e0245e" : "#757575"}
             strokeWidth="1.5"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
           </svg>
-          Love {hearts > 0 && `(${hearts})`}
+          Love {fact.hearts > 0 && `(${fact.hearts})`}
         </button>
 
         {/* Comment Button */}
@@ -453,6 +387,104 @@ const FunFactCard = ({ fact, index }) => {
 };
 
 const Homepage = () => {
+  const [facts, setFacts] = useState([
+    {
+      id: "fact-001",
+      title: "Talking in Bugs 🤦‍♂️🧠🛒",
+      description: "Do you know that Young once went to a store looking for a wet wipe but confidently asked for \"White-Out\" instead? The clerk is probably still telling that story lol.",
+      likes: 0,
+      hearts: 0,
+    },
+    {
+      id: "fact-002",
+      title: "Fashion Philosophy 👕💻",
+      description: "Do you know that Young's 'going out' outfit is just a clean version of the same hoodie he wears to code? It's called a capsule wardrobe, look it up.",
+      likes: 0,
+      hearts: 0,
+    },
+    {
+      id: "fact-003",
+      title: "The Dramatic Twist 😂",
+      description: "Do you know that Andrew's subconscious mind has a failsafe: in case of emergency wake-up, fingers will autopilot to the terminal and type the startup command. Verbal communication may take several more minutes to load.",
+      likes: 0,
+      hearts: 0,
+    },
+    {
+      id: "fact-004",
+      title: "The \"Fair-Weather Friend\" Reversal",
+      description: "Do you know that Andrew is basically a fair-weather friend, but in reverse? You'll only find him in your DMs when the weather is terrible—that is, when his cloud services are down.",
+      likes: 0,
+      hearts: 0,
+    },
+    {
+      id: "fact-005",
+      title: "The 2 AM Ghost Protocol 👻😱🕑💥",
+      description: "Do you know that Andrew has friends who only hear from him in a state of sheer panic? To them, he is a ghost who only materializes when a deployment fails at 2 AM.",
+      likes: 0,
+      hearts: 0,
+    },
+    {
+      id: "fact-006",
+      title: "Coffee Powered ☕💪",
+      description: "Best ideas come with a cup of coffee and a collaborative mindset with team members. No coffee = no code = no solutions!",
+      likes: 0,
+      hearts: 0,
+    },
+  ]);
+  const [reactions, setReactions] = useState({});
+
+  // Fetch facts from backend on mount
+  useEffect(() => {
+    const fetchFacts = async () => {
+      try {
+        const response = await fetch("https://nyabera-backend.onrender.com/api/testimonials/andrew");
+        if (response.ok) {
+          const data = await response.json();
+          // Find facts and update their reaction counts
+          setFacts(prevFacts =>
+            prevFacts.map(prevFact => {
+              const backendFact = data.find(item => item.id === prevFact.id);
+              if (backendFact) {
+                return {
+                  ...prevFact,
+                  likes: backendFact.likes || 0,
+                  hearts: backendFact.hearts || 0,
+                };
+              }
+              return prevFact;
+            })
+          );
+        }
+      } catch (error) {
+        console.error("Error fetching facts:", error);
+      }
+    };
+
+    fetchFacts();
+  }, []);
+
+  const handleReactionChange = (factId, updatedReactions) => {
+    // Update the fact with new reaction counts from the API
+    setFacts(prevFacts =>
+      prevFacts.map(fact =>
+        fact.id === factId
+          ? { ...fact, likes: updatedReactions.likes, hearts: updatedReactions.hearts }
+          : fact
+      )
+    );
+    
+    // Update the user's reaction state
+    if (updatedReactions.userReactions) {
+      setReactions(prevReactions => ({
+        ...prevReactions,
+        [factId]: {
+          ...prevReactions[factId],
+          ...updatedReactions.userReactions,
+        },
+      }));
+    }
+  };
+
   return (
     <motion.div
       className="flex flex-col min-h-screen"
@@ -564,39 +596,14 @@ const Homepage = () => {
             Fun Facts About Me 🎯
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                id: "fact-001",
-                title: "Talking in Bugs 🤦‍♂️🧠🛒",
-                description: "Do you know that Young once went to a store looking for a wet wipe but confidently asked for \"White-Out\" instead? The clerk is probably still telling that story lol."
-              },
-              {
-                id: "fact-002",
-                title: "Fashion Philosophy 👕💻",
-                description: "Do you know that Young's 'going out' outfit is just a clean version of the same hoodie he wears to code? It's called a capsule wardrobe, look it up."
-              },
-              {
-                id: "fact-003",
-                title: "The Dramatic Twist 😂",
-                description: "Do you know that Andrew's subconscious mind has a failsafe: in case of emergency wake-up, fingers will autopilot to the terminal and type the startup command. Verbal communication may take several more minutes to load."
-              },
-              {
-                id: "fact-004",
-                title: "The \"Fair-Weather Friend\" Reversal",
-                description: "Do you know that Andrew is basically a fair-weather friend, but in reverse? You'll only find him in your DMs when the weather is terrible—that is, when his cloud services are down."
-              },
-              {
-                id: "fact-005",
-                title: "The 2 AM Ghost Protocol 👻😱🕑💥",
-                description: "Do you know that Andrew has friends who only hear from him in a state of sheer panic? To them, he is a ghost who only materializes when a deployment fails at 2 AM."
-              },
-              {
-                id: "fact-006",
-                title: "Coffee Powered ☕💪",
-                description: "Best ideas come with a cup of coffee and a collaborative mindset with team members. No coffee = no code = no solutions!"
-              },
-            ].map((fact, index) => (
-              <FunFactCard key={fact.id} fact={fact} index={index} />
+            {facts.map((fact, index) => (
+              <FunFactCard 
+                key={fact.id} 
+                fact={fact} 
+                index={index}
+                reactions={reactions}
+                onReactionChange={handleReactionChange}
+              />
             ))}
           </div>
         </div>
