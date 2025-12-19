@@ -35,22 +35,26 @@ const FunFactCard = ({ fact, index }) => {
           console.log("📥 Fetched comments for fact", fact.id, ":", factComments);
           setComments(factComments);
           
-          // Calculate likes and hearts - count net reactions (if user has reacted)
-          const likeReactions = data.filter((item) => item.factId === fact.id && item.type === "like");
-          const heartReactions = data.filter((item) => item.factId === fact.id && item.type === "heart");
+          // Get the fact data to get actual like and heart counts from the database
+          // The backend stores reactions as increment/decrement operations on the fact object
+          const factData = data.find((item) => item.id === fact.id);
           
-          // Count total likes (just check if action was "like" or no action field means it's a like)
-          const likeCount = likeReactions.filter((item) => item.action !== "unlike").length;
-          const heartCount = heartReactions.filter((item) => item.action !== "unlove").length;
-          
-          setLikes(likeCount);
-          setHearts(heartCount);
-          
-          // Check if current user has already liked or hearted (for demo, check if count > 0, in production use user ID)
-          setUserLiked(likeCount > 0);
-          setUserHeartted(heartCount > 0);
-          
-          console.log("📊 Likes:", likeCount, "Hearts:", heartCount);
+          if (factData) {
+            const likeCount = factData.likes || 0;
+            const heartCount = factData.hearts || 0;
+            
+            setLikes(likeCount);
+            setHearts(heartCount);
+            
+            // For demo purposes, if there are any likes/hearts, assume user has reacted
+            // In production, use user ID to check if current user has reacted
+            setUserLiked(likeCount > 0);
+            setUserHeartted(heartCount > 0);
+            
+            console.log("📊 Fact Data:", { likes: likeCount, hearts: heartCount });
+          } else {
+            console.log("ℹ️ Fact data not found, keeping default counts");
+          }
         }
       } catch (error) {
         console.error("Error fetching comments:", error);
@@ -109,7 +113,7 @@ const FunFactCard = ({ fact, index }) => {
   const handleLike = async () => {
     // Toggle like state
     const newLikeCount = userLiked ? likes - 1 : likes + 1;
-    const action = userLiked ? "unlike" : "like";
+    const action = userLiked ? "decrement" : "increment";
     
     // Optimistically update UI
     setLikes(newLikeCount);
@@ -133,6 +137,8 @@ const FunFactCard = ({ fact, index }) => {
       });
 
       console.log("📦 Like response status:", response.status);
+      const responseText = await response.text();
+      console.log("📦 Like response body:", responseText);
 
       if (!response.ok) {
         console.error("❌ Failed to save like to database");
@@ -153,7 +159,7 @@ const FunFactCard = ({ fact, index }) => {
   const handleHeart = async () => {
     // Toggle heart state
     const newHeartCount = userHeartted ? hearts - 1 : hearts + 1;
-    const action = userHeartted ? "unlove" : "love";
+    const action = userHeartted ? "decrement" : "increment";
     
     // Optimistically update UI
     setHearts(newHeartCount);
@@ -177,6 +183,8 @@ const FunFactCard = ({ fact, index }) => {
       });
 
       console.log("📦 Heart response status:", response.status);
+      const responseText = await response.text();
+      console.log("📦 Heart response body:", responseText);
 
       if (!response.ok) {
         console.error("❌ Failed to save heart to database");
