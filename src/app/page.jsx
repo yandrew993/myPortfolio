@@ -442,22 +442,63 @@ const FunFactCard = ({ fact, index, reactions = {}, onReactionChange }) => {
                   )}
                   
                   {/* Comment Reaction Buttons */}
-                  <div className="flex gap-2 text-xs">
+                  <div className="border-t border-gray-200 pt-2 flex justify-around text-xs font-semibold text-gray-700">
+                    {/* Like Button */}
                     <button
                       onClick={() => handleCommentReaction(comment.id, "like")}
-                      className={`px-2 py-1 rounded hover:bg-gray-100 transition-colors ${
-                        commentReactions?.like ? "text-blue-500 font-semibold" : "text-gray-600"
+                      className={`flex-1 py-1 hover:bg-gray-100 rounded flex justify-center items-center gap-1 transition-colors ${
+                        commentReactions?.like ? "text-blue-500" : ""
                       }`}
                     >
-                      👍 Like
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        style={{
+                          verticalAlign: 'middle',
+                          transition: 'fill 0.2s, stroke 0.2s'
+                        }}
+                      >
+                        <path 
+                          d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-5z"
+                          fill={commentReactions?.like ? "#1877f2" : "#fff"}
+                          stroke={commentReactions?.like ? "#fff" : "#757575"}
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path 
+                          d="M7 22H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h3"
+                          fill={commentReactions?.like ? "#1877f2" : "#fff"}
+                          stroke={commentReactions?.like ? "#fff" : "#757575"}
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      Like {(comment.likes || 0) > 0 && `(${comment.likes})`}
                     </button>
+
+                    {/* Heart Button */}
                     <button
                       onClick={() => handleCommentReaction(comment.id, "heart")}
-                      className={`px-2 py-1 rounded hover:bg-gray-100 transition-colors ${
-                        commentReactions?.heart ? "text-red-500 font-semibold" : "text-gray-600"
+                      className={`flex-1 py-1 hover:bg-gray-100 rounded flex justify-center items-center gap-1 transition-colors ${
+                        commentReactions?.heart ? "text-red-500" : ""
                       }`}
                     >
-                      ❤️ Love
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill={commentReactions?.heart ? "#e0245e" : "white"}
+                        stroke={commentReactions?.heart ? "#e0245e" : "#757575"}
+                        strokeWidth="1.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                      </svg>
+                      Love {(comment.hearts || 0) > 0 && `(${comment.hearts})`}
                     </button>
                   </div>
                 </div>
