@@ -98,17 +98,15 @@ const FunFactCard = ({ fact, index }) => {
     setLikes(newLikeCount);
 
     const likeData = {
-      factId: fact.id,
       type: "like",
-      count: newLikeCount,
-      timestamp: new Date().toISOString(),
     };
 
     console.log("👍 Sending like data:", likeData);
+    console.log("🌐 PATCH URL:", `${API_URL}/${fact.id}/reaction`);
 
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
+      const response = await fetch(`${API_URL}/${fact.id}/reaction`, {
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
@@ -134,17 +132,15 @@ const FunFactCard = ({ fact, index }) => {
     setHearts(newHeartCount);
 
     const heartData = {
-      factId: fact.id,
       type: "heart",
-      count: newHeartCount,
-      timestamp: new Date().toISOString(),
     };
 
     console.log("❤️ Sending heart data:", heartData);
+    console.log("🌐 PATCH URL:", `${API_URL}/${fact.id}/reaction`);
 
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
+      const response = await fetch(`${API_URL}/${fact.id}/reaction`, {
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
