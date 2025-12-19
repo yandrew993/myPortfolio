@@ -447,7 +447,7 @@ const FunFactCard = ({ fact, index, reactions = {}, onReactionChange }) => {
                     <button
                       onClick={() => handleCommentReaction(comment.id, "like")}
                       className={`flex-1 py-1 hover:bg-gray-100 rounded flex justify-center items-center gap-1 transition-colors ${
-                        commentReactions?.like ? "text-blue-500" : "text-gray-700"
+                        commentReactions?.like ? "text-blue-500" : ""
                       }`}
                     >
                       <svg
@@ -462,16 +462,16 @@ const FunFactCard = ({ fact, index, reactions = {}, onReactionChange }) => {
                       >
                         <path 
                           d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-5z"
-                          fill={commentReactions?.like ? "#3b82f6" : "#fff"}
-                          stroke={commentReactions?.like ? "#3b82f6" : "#757575"}
+                          fill={commentReactions?.like ? "#1877f2" : "#fff"}
+                          stroke={commentReactions?.like ? "#fff" : "#757575"}
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
                         />
                         <path 
                           d="M7 22H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h3"
-                          fill={commentReactions?.like ? "#3b82f6" : "#fff"}
-                          stroke={commentReactions?.like ? "#3b82f6" : "#757575"}
+                          fill={commentReactions?.like ? "#1877f2" : "#fff"}
+                          stroke={commentReactions?.like ? "#fff" : "#757575"}
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
