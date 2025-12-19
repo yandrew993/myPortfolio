@@ -93,10 +93,10 @@ const FunFactCard = ({ fact, index, reactions = {}, onReactionChange }) => {
     const action = isActive ? "decrement" : "increment";
 
     console.log(`${reactionType === "like" ? "👍" : "❤️"} Sending ${reactionType} with action:`, action);
-    console.log("🌐 PATCH URL:", `${API_URL}/${fact.id}/reaction`);
+    console.log("🌐 PATCH URL:", `${API_URL}/facts/${fact.id}/reaction`);
 
     try {
-      const response = await fetch(`${API_URL}/${fact.id}/reaction`, {
+      const response = await fetch(`${API_URL}/facts/${fact.id}/reaction`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ type: reactionType, action }),
