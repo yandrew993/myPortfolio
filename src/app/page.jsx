@@ -17,6 +17,8 @@ const FunFactCard = ({ fact, index }) => {
   const [userName, setUserName] = useState("");
   const [expandedComments, setExpandedComments] = useState({});
   const [loading, setLoading] = useState(false);
+  const [userLiked, setUserLiked] = useState(false);
+  const [userHeartted, setUserHeartted] = useState(false);
 
   const API_URL = "https://nyabera-backend.onrender.com/api/testimonials/andrew";
 
@@ -33,11 +35,22 @@ const FunFactCard = ({ fact, index }) => {
           console.log("📥 Fetched comments for fact", fact.id, ":", factComments);
           setComments(factComments);
           
-          // Set likes and hearts from database
-          const likeCount = data.filter((item) => item.factId === fact.id && item.type === "like").length;
-          const heartCount = data.filter((item) => item.factId === fact.id && item.type === "heart").length;
+          // Calculate likes and hearts - count net reactions (if user has reacted)
+          const likeReactions = data.filter((item) => item.factId === fact.id && item.type === "like");
+          const heartReactions = data.filter((item) => item.factId === fact.id && item.type === "heart");
+          
+          // Count total likes (just check if action was "like" or no action field means it's a like)
+          const likeCount = likeReactions.filter((item) => item.action !== "unlike").length;
+          const heartCount = heartReactions.filter((item) => item.action !== "unlove").length;
+          
           setLikes(likeCount);
           setHearts(heartCount);
+          
+          // Check if current user has already liked or hearted (for demo, check if count > 0, in production use user ID)
+          setUserLiked(likeCount > 0);
+          setUserHeartted(heartCount > 0);
+          
+          console.log("📊 Likes:", likeCount, "Hearts:", heartCount);
         }
       } catch (error) {
         console.error("Error fetching comments:", error);
@@ -94,11 +107,17 @@ const FunFactCard = ({ fact, index }) => {
   };
 
   const handleLike = async () => {
-    const newLikeCount = likes + 1;
+    // Toggle like state
+    const newLikeCount = userLiked ? likes - 1 : likes + 1;
+    const action = userLiked ? "unlike" : "like";
+    
+    // Optimistically update UI
     setLikes(newLikeCount);
+    setUserLiked(!userLiked);
 
     const likeData = {
       type: "like",
+      action: action,
     };
 
     console.log("👍 Sending like data:", likeData);
@@ -117,22 +136,32 @@ const FunFactCard = ({ fact, index }) => {
 
       if (!response.ok) {
         console.error("❌ Failed to save like to database");
-        setLikes(likes); // Revert on error
+        // Revert on error
+        setLikes(userLiked ? likes + 1 : likes - 1);
+        setUserLiked(userLiked);
       } else {
         console.log("✅ Like saved successfully");
       }
     } catch (error) {
       console.error("❌ Error saving like:", error);
-      setLikes(likes); // Revert on error
+      // Revert on error
+      setLikes(userLiked ? likes + 1 : likes - 1);
+      setUserLiked(userLiked);
     }
   };
 
   const handleHeart = async () => {
-    const newHeartCount = hearts + 1;
+    // Toggle heart state
+    const newHeartCount = userHeartted ? hearts - 1 : hearts + 1;
+    const action = userHeartted ? "unlove" : "love";
+    
+    // Optimistically update UI
     setHearts(newHeartCount);
+    setUserHeartted(!userHeartted);
 
     const heartData = {
       type: "heart",
+      action: action,
     };
 
     console.log("❤️ Sending heart data:", heartData);
@@ -151,13 +180,17 @@ const FunFactCard = ({ fact, index }) => {
 
       if (!response.ok) {
         console.error("❌ Failed to save heart to database");
-        setHearts(hearts); // Revert on error
+        // Revert on error
+        setHearts(userHeartted ? hearts + 1 : hearts - 1);
+        setUserHeartted(userHeartted);
       } else {
         console.log("✅ Heart saved successfully");
       }
     } catch (error) {
       console.error("❌ Error saving heart:", error);
-      setHearts(hearts); // Revert on error
+      // Revert on error
+      setHearts(userHeartted ? hearts + 1 : hearts - 1);
+      setUserHeartted(userHeartted);
     }
   };
 
@@ -248,7 +281,7 @@ const FunFactCard = ({ fact, index }) => {
         <button
           onClick={handleLike}
           className={`flex-1 py-2 hover:bg-gray-100 rounded flex justify-center items-center gap-2 transition-colors ${
-            likes > 0 ? "text-blue-500" : ""
+            userLiked ? "text-blue-500" : ""
           }`}
         >
           <svg
@@ -263,16 +296,16 @@ const FunFactCard = ({ fact, index }) => {
           >
             <path 
               d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-5z"
-              fill={likes > 0 ? "#1877f2" : "#fff"}
-              stroke={likes > 0 ? "#fff" : "#757575"}
+              fill={userLiked ? "#1877f2" : "#fff"}
+              stroke={userLiked ? "#fff" : "#757575"}
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
             <path 
               d="M7 22H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h3"
-              fill={likes > 0 ? "#1877f2" : "#fff"}
-              stroke={likes > 0 ? "#fff" : "#757575"}
+              fill={userLiked ? "#1877f2" : "#fff"}
+              stroke={userLiked ? "#fff" : "#757575"}
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -285,15 +318,15 @@ const FunFactCard = ({ fact, index }) => {
         <button
           onClick={handleHeart}
           className={`flex-1 py-2 hover:bg-gray-100 rounded flex justify-center items-center gap-2 transition-colors ${
-            hearts > 0 ? "text-red-500" : ""
+            userHeartted ? "text-red-500" : ""
           }`}
         >
           <svg
             width="20"
             height="20"
             viewBox="0 0 24 24"
-            fill={hearts > 0 ? "#e0245e" : "white"}
-            stroke={hearts > 0 ? "#e0245e" : "#757575"}
+            fill={userHeartted ? "#e0245e" : "white"}
+            stroke={userHeartted ? "#e0245e" : "#757575"}
             strokeWidth="1.5"
             xmlns="http://www.w3.org/2000/svg"
           >
