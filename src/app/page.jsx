@@ -16,14 +16,15 @@ const FunFactCard = ({ fact, index, reactions = {}, onReactionChange }) => {
   const [expandedComments, setExpandedComments] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const API_URL = "https://nyabera-backend.onrender.com/api/testimonials/andrew";
+  const API_BASE_URL = "https://nyabera-backend.onrender.com/api/testimonials";
+  const API_TESTIMONIALS_URL = "https://nyabera-backend.onrender.com/api/testimonials/andrew";
 
   // Fetch comments and reactions from database on component mount
   useEffect(() => {
     const fetchComments = async () => {
       try {
         setLoading(true);
-        const response = await fetch(API_URL);
+        const response = await fetch(API_TESTIMONIALS_URL);
         if (response.ok) {
           const data = await response.json();
           // Filter comments for this specific fact - only approved comments
@@ -51,11 +52,11 @@ const FunFactCard = ({ fact, index, reactions = {}, onReactionChange }) => {
 
       console.log("📝 Sending comment data:", newComment);
       console.log("📋 Fact ID:", fact.id);
-      console.log("🌐 API URL:", API_URL);
+      console.log("🌐 API URL:", API_TESTIMONIALS_URL);
 
       try {
         setLoading(true);
-        const response = await fetch(API_URL, {
+        const response = await fetch(API_TESTIMONIALS_URL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -93,10 +94,10 @@ const FunFactCard = ({ fact, index, reactions = {}, onReactionChange }) => {
     const action = isActive ? "decrement" : "increment";
 
     console.log(`${reactionType === "like" ? "👍" : "❤️"} Sending ${reactionType} with action:`, action);
-    console.log("🌐 PATCH URL:", `${API_URL}/facts/${fact.id}/reaction`);
+    console.log("🌐 PATCH URL:", `${API_BASE_URL}/facts/${fact.id}/reaction`);
 
     try {
-      const response = await fetch(`${API_URL}/facts/${fact.id}/reaction`, {
+      const response = await fetch(`${API_BASE_URL}/facts/${fact.id}/reaction`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ type: reactionType, action }),
@@ -114,10 +115,11 @@ const FunFactCard = ({ fact, index, reactions = {}, onReactionChange }) => {
       console.log("✅ Reaction saved successfully:", updated);
 
       // Update the fact's reaction counts and user's reaction state via parent callback
+      // Response contains: { id, factId, likes, hearts, createdAt }
       if (onReactionChange) {
         onReactionChange(fact.id, {
-          likes: updated.likes,
-          hearts: updated.hearts,
+          likes: updated.likes || 0,
+          hearts: updated.hearts || 0,
           userReactions: {
             [reactionType]: !isActive, // Toggle the user's reaction state
           },
