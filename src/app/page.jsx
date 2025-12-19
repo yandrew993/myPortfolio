@@ -130,6 +130,57 @@ const FunFactCard = ({ fact, index, reactions = {}, onReactionChange }) => {
     }
   };
 
+  const handleCommentReaction = async (commentId, reactionType) => {
+    if (!commentId) return;
+
+    // Get current reaction state for this comment
+    const currentReactions = expandedComments[`${commentId}_reactions`] || {};
+    const isActive = currentReactions?.[reactionType];
+    const action = isActive ? "decrement" : "increment";
+
+    console.log(`📝 Comment ${commentId} - ${reactionType === "like" ? "👍" : "❤️"} with action:`, action);
+    console.log("🌐 PATCH URL:", `${API_BASE_URL}/andrew/${commentId}/reaction`);
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/andrew/${commentId}/reaction`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: reactionType, action }),
+      });
+
+      console.log("📦 Comment reaction response status:", response.status);
+      const responseText = await response.text();
+      console.log("📦 Comment reaction response body:", responseText);
+
+      if (!response.ok) {
+        throw new Error("Failed to update comment reaction");
+      }
+
+      const updated = JSON.parse(responseText);
+      console.log("✅ Comment reaction saved successfully:", updated);
+
+      // Update comments with new reaction counts
+      setComments(prevComments =>
+        prevComments.map(comment =>
+          comment.id === commentId
+            ? { ...comment, likes: updated.likes || 0, hearts: updated.hearts || 0 }
+            : comment
+        )
+      );
+
+      // Update local reaction tracking
+      setExpandedComments(prev => ({
+        ...prev,
+        [`${commentId}_reactions`]: {
+          ...(prev[`${commentId}_reactions`] || {}),
+          [reactionType]: !isActive,
+        },
+      }));
+    } catch (error) {
+      console.error(`❌ Error saving comment ${reactionType}:`, error);
+    }
+  };
+
   const handleLike = async () => {
     await handleReaction("like");
   };
@@ -342,6 +393,7 @@ const FunFactCard = ({ fact, index, reactions = {}, onReactionChange }) => {
           <div className="space-y-3">
             {comments.map((comment) => {
               const commentDisplay = getCommentText(comment);
+              const commentReactions = expandedComments[`${comment.id}_reactions`] || {};
               return (
                 <div key={comment.id} className="bg-white p-3 rounded-lg border border-gray-200">
                   <div className="flex justify-between items-start mb-1">
@@ -363,7 +415,7 @@ const FunFactCard = ({ fact, index, reactions = {}, onReactionChange }) => {
                           }))}
                     </span>
                   </div>
-                  <p className="text-gray-700 text-sm">
+                  <p className="text-gray-700 text-sm mb-2">
                     {commentDisplay.isLong
                       ? commentDisplay.isExpanded
                         ? commentDisplay.full
@@ -378,6 +430,36 @@ const FunFactCard = ({ fact, index, reactions = {}, onReactionChange }) => {
                       </button>
                     )}
                   </p>
+                  
+                  {/* Comment Reaction Stats */}
+                  {((comment.likes || 0) > 0 || (comment.hearts || 0) > 0) && (
+                    <div className="mb-2 text-xs text-gray-500 flex items-center gap-2">
+                      <div className="flex items-center gap-1">
+                        {(comment.likes || 0) > 0 && <span>👍 {comment.likes}</span>}
+                        {(comment.hearts || 0) > 0 && <span>❤️ {comment.hearts}</span>}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Comment Reaction Buttons */}
+                  <div className="flex gap-2 text-xs">
+                    <button
+                      onClick={() => handleCommentReaction(comment.id, "like")}
+                      className={`px-2 py-1 rounded hover:bg-gray-100 transition-colors ${
+                        commentReactions?.like ? "text-blue-500 font-semibold" : "text-gray-600"
+                      }`}
+                    >
+                      👍 Like
+                    </button>
+                    <button
+                      onClick={() => handleCommentReaction(comment.id, "heart")}
+                      className={`px-2 py-1 rounded hover:bg-gray-100 transition-colors ${
+                        commentReactions?.heart ? "text-red-500 font-semibold" : "text-gray-600"
+                      }`}
+                    >
+                      ❤️ Love
+                    </button>
+                  </div>
                 </div>
               );
             })}
