@@ -536,14 +536,14 @@ const Homepage = () => {
     },
     {
       id: "fact-004",
-      title: "The \"Fair-Weather Friend\" Reversal",
+      title: "The \"Fair-Weather Friend\" Reversal 🌩️📱",
       description: "Do you know that Andrew is basically a fair-weather friend, but in reverse? You'll only find him in your DMs when the weather is terrible—that is, when his cloud services are down.",
       likes: 0,
       hearts: 0,
     },
     {
       id: "fact-005",
-      title: "The 2 AM Ghost Protocol 👻😱🕑💥",
+      title: "The 2 AM Ghost Protocol 👻😱",
       description: "Do you know that Andrew has friends who only hear from him in a state of sheer panic? To them, he is a ghost who only materializes when a deployment fails at 2 AM.",
       likes: 0,
       hearts: 0,
@@ -666,10 +666,14 @@ const Homepage = () => {
               fontWeight: '400',
               lineHeight: '1.7',
             }}>
-              {`Development is not just about writing code, but about crafting meaningful digital solutions that inspire growth, enhance user experience, and empower businesses to achieve their goals. My journey as a developer has been guided by a passion for innovation and a commitment to delivering excellence in every project I undertake. Whether it's building stunning websites, designing compelling graphics, or providing technical expertise.`
+              {`With festive spirit, 🎉 my approach to development goes beyond writing code—it's about crafting meaningful digital solutions that inspire growth, enhance user experience, and empower businesses. Guided by innovation and a commitment to excellence, I bring this focus to every project, whether building websites, designing graphics, or providing technical expertise.
+
+Wishing you a Merry Christmas and a Happy New Year filled with joy, peace, and great success! 🎄✨🎆`
                 .split("")
                 .map((letter, index) => {
-                  const text = `Development is not just about writing code, but about crafting meaningful digital solutions that inspire growth, enhance user experience, and empower businesses to achieve their goals. My journey as a developer has been guided by a passion for innovation and a commitment to delivering excellence in every project I undertake. Whether it's building stunning websites, designing compelling graphics, or providing technical expertise.`;
+                  const text = `With festive spirit, 🎉 my approach to development goes beyond writing code—it's about crafting meaningful digital solutions that inspire growth, enhance user experience, and empower businesses. Guided by innovation and a commitment to excellence, I bring this focus to every project, whether building websites, designing graphics, or providing technical expertise.
+
+Wishing you a Merry Christmas and a Happy New Year filled with joy, peace, and great success! 🎄✨🎆`;
                   const totalLetters = text.length;
                   const fadeOutDuration = totalLetters * 0.05 + 2;
                   const pauseDuration = 15;
