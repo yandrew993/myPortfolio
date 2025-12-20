@@ -379,7 +379,7 @@ const AboutPage = () => {
                   </div>
                   {/* JOB DATE */}
                   <div className="p-3 text-red-400 text-sm font-semibold">
-                    2024 - Present{" "}
+                    2024 - 2025{"April"}
                   </div>
                   {/* JOB COMPANY */}
                   <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
@@ -407,7 +407,7 @@ const AboutPage = () => {
                     </defs>
                     <text fill="#000" dy="20">
                       <textPath xlinkHref="#circlePath" className="text-xl">
-                        For wordpress Website Development
+                        For Web App Development
                       </textPath>
                     </text>
                   </motion.svg>
